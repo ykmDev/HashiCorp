@@ -1,0 +1,16 @@
+course: https://www.udemy.com/course/hashicorp-certified-terraform-associate-004/
+repo: https://github.com/btkrausen/hashicorp
+exam style:
+    duration: 60 mins
+    delivery: online proctored (Certiverse)
+    language: english (Non-native speaker can request additional time)
+    cost: $70.50 USD
+    validity: two-years(retake the exam to extend)
+    results: immediate Pass/Fail result
+    format:
+        multiple choice(one ans, multiple ans)\
+        true/false questions
+    Note:
+        not intentionally Tricky.
+        if you know material, you're going to, easily recognize correct answer.
+
