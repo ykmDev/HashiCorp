@@ -13,4 +13,7 @@ exam style:
     Note:
         not intentionally Tricky.
         if you know material, you're going to, easily recognize correct answer.
+Study Plan:
+    70% Hands-On Practice, 30% Theory.
+    You cannot learn Terraform by reading alone!
 
