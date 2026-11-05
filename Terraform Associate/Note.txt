@@ -8,7 +8,7 @@ exam style:
     validity: two-years(retake the exam to extend)
     results: immediate Pass/Fail result
     format:
-        multiple choice(one ans, multiple ans)\
+        multiple choice(one ans, multiple ans)
         true/false questions
     Note:
         not intentionally Tricky.
@@ -16,4 +16,120 @@ exam style:
 Study Plan:
     70% Hands-On Practice, 30% Theory.
     You cannot learn Terraform by reading alone!
+Introduction:
+HCL:
+    HashiCory Configuration language(HCL)
+    declarative language
+    easy to read and write
+    Terrraform's Primary Interface
+style:
+    # for comments
+    underscore to separate
+    To format style coding: terraform fmt
+    Terraform Community: Command Line Based
+    HCP Terraform: SAAS Platform
+    Terraform: Self-Hosted & Managed
+declarative Vs Imperative:
+    declarative:
+        I want an Ec2 instance with these properties.
+    Imperative:
+        step 1: build VM
+        step 2: Configure VM
+        step 3: Attach to Network
+terraform 3 workflow stages:
+    Write, Plan, Apply.
+    Write: define your infra.
+    Plan: preview changes.
+    Apply: execute changes.
+    One point:
+        initialize is necessary in practice, 
+        but not part of 'official' HashiCorp doc.
+default: 10 concurrent operations:
+    can be modified using: -parallelism flag on plan, apply, destroy cmds.
+terraform apply:
+    cmd:
+        standard apply: terraform apply
+            Confirm (Y/N):
+        Apply a Saved Plan: terraform apply myplan.tfplan
+        Apply & auto approve: terraform apply --auto-approve
+            -input=false is also helpful for automation/CI/CD pipelines
+    before apply:
+        always review the Plan
+        ensure right directoy
+        test in non-production
+    during apply:
+        read the plan carefully
+        watch for unexpected changes
+        be patient with large applies
+    after you apply:
+        verifty the changes
+        commit your Configuration
+        document significant changes
+    flow:
+        terraform Configuration -> state -> cloud providers
+terraform destory:
+    cmd: 
+        all resource destroy: terraform destroy
+        specific single destroy: terraform destroy -target=<resource_name>
+    terminates resources managed by terrafrom in current workspace/working directoy.
+    when using cmd:
+        prompt for comfirmantion before preceeding.
+        show destruction plan first.
+        explicitly destroys all infra by managed terraform.
+    when removing individual resources from your Configuration:
+        delete resource block, run terraform apply.
+        Terraform detects removed resources and destroys real-world resource.
+        Terraform removes it from state file.
+    Warning: Destroy operations are irreversible(ပြန်ပြောင်း၍မရနိုင်သော)
+        Always review the plan carefully.
+        if should be backup/snapshot before destroy.
+terraform validate:
+    to check any syntax error and ensures structurally valid.
+    cmd: terraform validate.
+    100% offline check, does not communicate with Cloud Providers.
+    work flow:
+        initialize     > Validate           > Plan           > Apply           > Destroy
+        terraform init > terraform validate > terraform plan > terraform apply > terraform destroy
+terraform autocomplete:
+    tab completion helops you quickly fill in subcommands, flags, file paths by pressing Tab keys.
+    installation on window bash:
+        touch ~/.bashrc
+        touch ~/.bash_profile
+        echo "source ~/.bashrc" >> ~/.bash_profile
+        echo "complete -C terraform terraform" >> ~/.bashrc
+        source ~/.bashrc
+        type: terraform and use: Tab key.
+terraform cli:
+    primary way to interect with Terraform and execute workflow steps.
+    structure: terraform <subcommand> [options or flags]
+        terraform plan -out=planfile
+    Mapping the workflow to cmd:
+        Write(terraform fmt) > initialize(terraform init) > Plan(terraform plan) > Apply(terrafomrm apply) > Destroy(terraform destroy)
+        subcommand:
+            apply: Create or update infrastructure
+            destroy: Delete Terraform-managed infrastructure
+            fmt: Format .tf files
+            import: Bring existing infrastructure under Terraform management
+            init: Prepare Terraform working directory
+            output: Display output values
+            plan: Preview infrastructure changes
+            show: Display a plan or Terraform state
+            state: Inspect or modify Terraform state
+            validate: Check configuration syntax and consistency
+            version: Display Terraform version
+    Using environments variables:
+        provide a way to pass Configuration settings and credentials
+            without hardcoding into files.
+        they increase security by keeping sensitive data like API keys out of .tf files.
+Note:
+    .terraform.lock.hcl file:
+        lock the provider versions to ensure consistency across team members and environments.
+            which provider versions were downloaded during terraform init
+            to ensure on team uses same provider versions.
+    When you run terraform apply, what happens if a resource fails to create halfway through the apply operation?
+        successfully created resources remain in place and are recordded in state,
+        you must fix the issue and re-run apply.
+    when ask confirmation: 'yes' on terraform apply/destroy cmd:
+        type: exactly 'yes' not 'Yes'/'YES'/other characters.
+    
 
